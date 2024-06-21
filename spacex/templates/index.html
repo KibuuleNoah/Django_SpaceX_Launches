@@ -1,0 +1,90 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <script src="{% static 'js/htmx.min.js' %}" defer></script>
+    <style>
+      body,
+      body div {
+        background-color: #14181c;
+        color: #fff;
+      }
+      .launch-card {
+        border: 1px solid #eaeaea;
+        padding: 20px;
+        margin-top: 20px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        transition: box-shadow 0.3s;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .launch-card:hover {
+        box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+      }
+
+      .launch-image {
+        height: 100px;
+        width: 100px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        margin-right: 15px;
+      }
+
+      .launch-title,
+      .launch-date {
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: palegreen;
+      }
+
+      .launch-links a {
+        margin-right: 10px;
+        color: paleturquoise;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="container">
+      <div  class="row mt-1">
+        <div  class="col mb-2">
+          {% if status == 'all' or status == '' %}
+            <button type="button" class="btn btn-dark active">All</button>
+          {% else %}
+            <a href="{% url 'home' %}?status=all" class="btn btn-dark">All</a>
+          {% endif %}
+        </div>
+        <div  class="col mb-2">
+          {% if status == 'S' %}
+            <button type="button" class="btn btn-dark active">Successful</button>
+          {% else %}
+            <a href="{% url 'home' %}?status=S" class="btn btn-dark">Successful</a>
+          {% endif %}
+        </div>
+        <div  class="col mb-2">
+          {% if status == 'U' %}
+            <button type="button" class="btn btn-dark active">Upcoming</button>
+          {% else %}
+            <a href="{% url 'home' %}?status=U" class="btn btn-dark">Upcoming</a>
+          {% endif %}
+        </div>
+        <div  class="col mb-2">
+          {% if status == 'F' %}
+            <button type="button" class="btn btn-dark active">Failed</button>
+          {% else %}
+            <a href="{% url 'home' %}?status=F" class="btn btn-dark">Failed</a>
+          {% endif %}
+        </div>
+      </div>
+
+      {% include 'launch_list.html' with launch_list=launch_list status=status%}
+    </section>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  </body>
+</html>

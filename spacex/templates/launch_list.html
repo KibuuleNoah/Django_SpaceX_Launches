@@ -1,0 +1,40 @@
+<!-- <div> -->
+<!--   {% for launch in launch_list %} -->
+<!--   <h1>{{launch.name}}</h1> -->
+<!--   <p>{{launch.details}}</p> -->
+<!--   {% endfor %} -->
+<!-- </div> -->
+<div>
+  {% for launch in launch_list %} {% if forloop.last %}
+  <div
+    class="launch-card"
+    hx-trigger="revealed"
+    hx-get="{% url 'home' %}?status={{status}}&page={{page_obj.number|add:1}}"
+    hx-swap="afterend"
+  >
+    {% else %}
+    <div class="launch-card">
+      {% endif %} {% if launch.image %}
+      <img src="{{launch.image}}" alt="{{launch.name}}" class="launch-image" />
+      {% endif %}
+      <div>
+        <div class="launch-title">
+          {{launch.name}} &CircleDot; <sub> {{launch.status}}</sub>
+        </div>
+        {% if launch.details %}
+        <p>{{launch.details}}</p>
+        {% endif %}
+        <p class="launch-date">{{launch.date}}</p>
+
+        <div class="launch-links">
+          <a href="{{launch.reddit_link}}" target="_blank">Reddit Launch</a>
+          <a href="{{launch.article_link}}" target="_blank">Article</a>
+          <a href="{{launch.wikipedia_link}}" target="_blank">Wikipedia</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    <div></div>
+  </div>
+  <!-- </div> -->
+</div>
